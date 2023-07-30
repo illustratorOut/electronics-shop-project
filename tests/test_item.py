@@ -13,3 +13,17 @@ def test_item():
 
     item3 = Item("apple", 0, 4)
     assert item3.calculate_total_price() == 0
+
+    item4 = Item("apple", 435, 5)
+    assert item4.name == "apple"
+
+    item5 = Item("apple", 435, 5)
+    pear = item5.name = "pear"
+    assert pear == "pear"
+    orange = item5.name = "orange_lime_d"
+    assert item5.name == "orange_lime"
+
+    item6 = Item("apple", 100, 10)
+    assert Item.string_to_number('5') == 5
+    assert Item.string_to_number('5.0') == 5
+    assert Item.string_to_number('Dima') is None
