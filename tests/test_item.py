@@ -27,3 +27,7 @@ def test_item():
     assert Item.string_to_number('5') == 5
     assert Item.string_to_number('5.0') == 5
     assert Item.string_to_number('Dima') is None
+
+    item7 = Item("Смартфон", 10000, 20)
+    assert repr(item7) == "Item('Смартфон', 10000, 20)"
+    assert str(item7) == 'Смартфон'
