@@ -68,3 +68,9 @@ class Item:
             return int(text)
         else:
             print('Страка не является числом')
+
+    def __add__(self, other):
+        if isinstance(other, Item):
+            return self.quantity + other.quantity
+        else:
+            raise ValueError(f'Сложение не возможно не является экземпляром класса {self.__class__.__name__}')
