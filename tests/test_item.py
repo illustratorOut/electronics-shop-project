@@ -1,5 +1,8 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
+import pytest
+
 from src.item import Item
+from src.phone import Phone
 
 
 def test_item():
@@ -32,6 +35,15 @@ def test_item():
     assert repr(item7) == "Item('Смартфон', 10000, 20)"
     assert str(item7) == 'Смартфон'
 
+    class OG:
+        def __init__(self, name: str, price: float, quantity: int) -> None:
+            self.__name = name
+            self.price = price
+            self.quantity = quantity
 
+    item8 = OG("Смартфон", 10000, 20)
+    item9 = Phone("Смартфон", 10000, 20)
 
+    assert item7 + item9 == 40
+    assert item7 + item8 == pytest.raises(ValueError)
 

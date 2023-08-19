@@ -73,4 +73,4 @@ class Item:
         if isinstance(other, Item):
             return self.quantity + other.quantity
         else:
-            print(f'Сложение не возможно не является экземпляром {self.__class__.__name__}')
+            raise ValueError(f'Сложение не возможно не является экземпляром класса {self.__class__.__name__}')
