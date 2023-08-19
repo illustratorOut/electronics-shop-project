@@ -31,3 +31,7 @@ def test_item():
     item7 = Item("Смартфон", 10000, 20)
     assert repr(item7) == "Item('Смартфон', 10000, 20)"
     assert str(item7) == 'Смартфон'
+
+
+
+
