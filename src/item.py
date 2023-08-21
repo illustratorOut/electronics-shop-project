@@ -1,4 +1,5 @@
 from csv import DictReader
+from pathlib import Path
 
 
 class Item:
@@ -7,6 +8,7 @@ class Item:
     """
     pay_rate = 1.0
     all = []
+    path_file = Path('../', 'src', 'items.csv')
 
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
@@ -56,10 +58,15 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls):
         Item.all = []
-        with open('../src/items.csv', newline='') as csvfile:
-            reader = DictReader(csvfile)
-            for row in reader:
-                cls(row['name'], row['price'], row['quantity'])
+        try:
+            with open(cls.path_file, newline='') as csvfile:
+                reader = DictReader(csvfile)
+                for row in reader:
+                    if len(row) <= 2:
+                        raise InstantiateCSVError('Файл item.csv поврежден')
+                    cls(row['name'], row['price'], row['quantity'])
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
     @staticmethod
     def string_to_number(text):
@@ -75,3 +82,11 @@ class Item:
             return self.quantity + other.quantity
         else:
             raise ValueError(f'Сложение не возможно не является экземпляром класса {self.__class__.__name__}')
+
+
+class InstantiateCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.value = args if args else 'Файл item.csv поврежден'
+
+    def __str__(self):
+        return f"{self.value}"

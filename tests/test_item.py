@@ -1,7 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
-
-from src.item import Item
+from pathlib import Path
+from src.item import Item, InstantiateCSVError
 from src.phone import Phone
 
 
@@ -47,3 +47,10 @@ def test_item():
     assert item7 + item9 == 40
     assert item7 + item8 == pytest.raises(ValueError)
 
+    with pytest.raises(FileNotFoundError):
+        Item.path_file = 'filename.csv'
+        Item.instantiate_from_csv()
+
+    with pytest.raises(InstantiateCSVError):
+        Item.path_file = Path('../', 'src', 'items_test.csv')
+        Item.instantiate_from_csv()
